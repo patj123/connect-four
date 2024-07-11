@@ -70,10 +70,15 @@ class Game {
     const piece = document.createElement('div');
     piece.classList.add('piece');
     piece.classList.add(`p${this.currPlayer}`);
-    piece.style.top = -50 * (y + 2);
+    piece.style.top = `${-50 * (y + 2)}px`;
 
     const spot = document.getElementById(`${y}-${x}`);
     spot.append(piece);
+
+    // Trigger the animation
+    requestAnimationFrame(() => {
+      piece.style.top = '0';
+    });
   }
 
   /** endGame: announce game end */
