@@ -12,6 +12,57 @@ html {
   color: #fff;
 }
 
+#start-screen,
+#color-selection-screen,
+#game-over-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.player-selection {
+  margin: 20px;
+}
+
+#player1-color,
+#player2-color {
+  padding: 10px;
+  font-size: 16px;
+}
+
+#start-button,
+#continue-button,
+#return-home-button,
+#start-over-button {
+  padding: 20px 40px;
+  font-size: 24px;
+  background-color: #ff4081;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  color: white;
+  margin: 10px;
+}
+
+#start-button:hover,
+#continue-button:hover,
+#return-home-button:hover,
+#start-over-button:hover {
+  background-color: #e91e63;
+}
+
+#error-message {
+  margin-top: 10px;
+}
+
+#game-over-message {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
 /* Style for the game container */
 #game {
   display: flex;
@@ -50,14 +101,6 @@ html {
   position: absolute;
   top: 0;
   transition: top 0.5s ease-in;
-}
-
-.piece.p1 {
-  background-color: red;
-}
-
-.piece.p2 {
-  background-color: blue;
 }
 
 /* Column-top is table row of clickable areas for each column */
