@@ -1,10 +1,3 @@
-/** Connect Four
- *
- * Player 1 and 2 alternate turns. On each turn, a piece is dropped down a
- * column until a player gets four-in-a-row (horiz, vert, or diag) or until
- * board fills (tie)
- */
-
 // Player class to handle player properties
 class Player {
   constructor(color) {
@@ -65,10 +58,15 @@ class Game {
     document.getElementById('start-screen').style.display = 'none';
     document.getElementById('game-over-screen').style.display = 'none';
     document.getElementById('color-selection-screen').style.display = 'flex';
+    this.populateColorSelections(); // Repopulate the color selection dropdowns
   }
 
   // Populate the color selection dropdowns
   populateColorSelections() {
+    // Clear existing options
+    this.player1ColorInput.innerHTML = '<option value="" selected disabled>Select Color</option>';
+    this.player2ColorInput.innerHTML = '<option value="" selected disabled>Select Color</option>';
+
     this.colors.forEach(color => {
       const option1 = document.createElement('option');
       const option2 = document.createElement('option');
@@ -98,13 +96,8 @@ class Game {
       this.currPlayer = this.players[0];
       document.getElementById('color-selection-screen').style.display = 'none';
       document.getElementById('game').style.display = 'flex';
-      this.startNewGame();
+      new ConnectFourGame(this.players); // Start a new game with selected players
     }
-  }
-
-  // Start a new game
-  startNewGame() {
-    new ConnectFourGame(this.players);
   }
 }
 
@@ -176,7 +169,7 @@ class ConnectFourGame {
     piece.style.backgroundColor = this.currPlayer.color;
     piece.style.top = `${-50 * (y + 2)}px`;
 
-    const spot = document.getElementById(`${y - 1}-${x}`);
+    const spot = document.getElementById(`${y}-${x}`);
     spot.append(piece);
 
     // Trigger the animation
@@ -260,3 +253,37 @@ class ConnectFourGame {
 
 // Initialize the main game object
 new Game();
+
+document.getElementById('start-button').addEventListener('click', () => {
+  document.getElementById('start-screen').style.display = 'none';
+  document.getElementById('color-selection-screen').style.display = 'flex';
+});
+
+document.getElementById('continue-button').addEventListener('click', () => {
+  const player1Color = document.getElementById('player1-color').value;
+  const player2Color = document.getElementById('player2-color').value;
+
+  if (!player1Color || !player2Color) {
+    alert('Both players must choose a color.');
+  } else if (player1Color === player2Color) {
+    alert('Players must choose different colors.');
+  } else {
+    const p1 = new Player(player1Color);
+    const p2 = new Player(player2Color);
+    new Game(p1, p2);
+    document.getElementById('color-selection-screen').style.display = 'none';
+    document.getElementById('game').style.display = 'flex';
+  }
+});
+
+document.getElementById('start-over-button').addEventListener('click', () => {
+  document.getElementById('game-over-screen').style.display = 'none';
+  document.getElementById('color-selection-screen').style.display = 'flex';
+  document.getElementById('game').style.display = 'none';
+});
+
+document.getElementById('return-home-button').addEventListener('click', () => {
+  document.getElementById('game-over-screen').style.display = 'none';
+  document.getElementById('start-screen').style.display = 'flex';
+  document.getElementById('game').style.display = 'none';
+});
