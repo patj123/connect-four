@@ -176,7 +176,7 @@ class ConnectFourGame {
     piece.style.backgroundColor = this.currPlayer.color;
     piece.style.top = `${-50 * (y + 2)}px`;
 
-    const spot = document.getElementById(`${y}-${x}`);
+    const spot = document.getElementById(`${y - 1}-${x}`);
     spot.append(piece);
 
     // Trigger the animation
